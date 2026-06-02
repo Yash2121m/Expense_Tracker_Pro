@@ -199,9 +199,9 @@ flutter run
 
 Flutter Developer
 
-* Portfolio: https://your-portfolio-link.com
+* Portfolio: https://yash-portfolio-27.netlify.app/
 * GitHub: https://github.com/Yash2121m
-* LinkedIn: https://linkedin.com/in/your-linkedin
+* LinkedIn: https://www.linkedin.com/in/yash-patil-2121yp/
 
 ---
 
