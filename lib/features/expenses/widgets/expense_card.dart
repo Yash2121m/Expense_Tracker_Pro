@@ -42,6 +42,7 @@ class ExpenseCard extends StatelessWidget {
         contentPadding: const EdgeInsets.all(12),
 
         leading: CircleAvatar(
+          backgroundColor: Color(0xffDBEAFE),
           radius: 24,
           child: Text(
             getEmoji(expense.category),

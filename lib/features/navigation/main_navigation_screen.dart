@@ -8,8 +8,7 @@ class MainNavigationScreen extends StatefulWidget {
   });
 
   @override
-  State<MainNavigationScreen>
-  createState() =>
+  State<MainNavigationScreen> createState() =>
       _MainNavigationScreenState();
 }
 
@@ -25,31 +24,75 @@ class _MainNavigationScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: screens,
+      ),
 
-      bottomNavigationBar:
-      NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected:
-            (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Dashboard',
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          backgroundColor: Colors.white,
+
+          indicatorColor: const Color(
+            0xffDBEAFE,
+          ), // Light Blue
+
+          iconTheme:
+          WidgetStateProperty.resolveWith(
+                (states) {
+              if (states.contains(
+                  WidgetState.selected)) {
+                return const IconThemeData(
+                  color: Color(0xff2563EB),
+                  size: 26,
+                );
+              }
+
+              return const IconThemeData(
+                color: Colors.grey,
+                size: 24,
+              );
+            },
           ),
-          NavigationDestination(
-            icon: Icon(
-              Icons.pie_chart,
-            ),
-            label: 'Analytics',
+
+          labelTextStyle:
+          WidgetStateProperty.resolveWith(
+                (states) {
+              return TextStyle(
+                color: states.contains(
+                    WidgetState.selected)
+                    ? const Color(
+                  0xff2563EB,
+                )
+                    : Colors.grey,
+                fontWeight: FontWeight.w600,
+              );
+            },
           ),
-        ],
+        ),
+        child: NavigationBar(
+          height: 70,
+          selectedIndex: currentIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Dashboard',
+            ),
+            NavigationDestination(
+              icon: Icon(
+                  Icons.pie_chart_outline),
+              selectedIcon:
+              Icon(Icons.pie_chart),
+              label: 'Analytics',
+            ),
+          ],
+        ),
       ),
     );
   }

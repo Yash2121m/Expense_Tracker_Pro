@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/utils/expense_utils.dart';
 import '../../expenses/presentation/add_expense_screen.dart';
 import '../../expenses/providers/expense_provider.dart';
 import '../../expenses/widgets/expense_card.dart';
+import '../widgets/insight_card.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -17,13 +19,24 @@ class DashboardScreen extends ConsumerWidget {
           (sum, expense) => sum + expense.amount,
     );
 
+    final highestCategory =
+    AnalyticsUtils.highestCategory(
+      expenses,
+    );
+
+    final averageExpense =
+    AnalyticsUtils.averageExpense(
+      expenses,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Tracker'),
         centerTitle: true,
       ),
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Color(0xff1D4ED8),
         onPressed: () {
           Navigator.push(
             context,
@@ -32,7 +45,10 @@ class DashboardScreen extends ConsumerWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text(
+          'Add Expense',
+        ),
       ),
 
       body: Column(
@@ -42,32 +58,82 @@ class DashboardScreen extends ConsumerWidget {
             width: double.infinity,
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.all(24),
+
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
+              borderRadius:
+              BorderRadius.circular(28),
+
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
                 colors: [
-                  Colors.green.shade300,
-                  Colors.green.shade500,
+                  Color(0xff2563EB),
+                  Color(0xff1E40AF),
                 ],
               ),
+
+              boxShadow: [
+                BoxShadow(
+                  color:
+                  Color(0xff2563EB)
+                      .withValues(alpha: 0.25),
+                  blurRadius: 20,
+                  offset: Offset(0, 10),
+                ),
+              ],
             ),
+
             child: Column(
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Total Expenses',
+                  'Total Balance',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    color: Colors.white70,
+                    fontSize: 15,
                   ),
                 ),
+
                 const SizedBox(height: 10),
+
                 Text(
-                  '₹${totalExpense.toStringAsFixed(2)}',
+                  '₹${totalExpense.toStringAsFixed(0)}',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    fontSize: 34,
                   ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Row(
+                  children: [
+                    Container(
+                      padding:
+                      const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                        Colors.white24,
+                        borderRadius:
+                        BorderRadius.circular(
+                          30,
+                        ),
+                      ),
+                      child: Text(
+                        '${expenses.length} Transactions',
+                        style:
+                        const TextStyle(
+                          color:
+                          Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -100,6 +166,32 @@ class DashboardScreen extends ConsumerWidget {
                         .toString(),
                     icon: Icons.category,
                   ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Row(
+              children: [
+                InsightCard(
+                  title: 'Top Category',
+                  value: highestCategory,
+                  icon: Icons.star,
+                ),
+
+                const SizedBox(width: 12),
+
+                InsightCard(
+                  title: 'Avg Expense',
+                  value:
+                  '₹${averageExpense.toStringAsFixed(0)}',
+                  icon: Icons.analytics,
                 ),
               ],
             ),
@@ -233,33 +325,53 @@ class _SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
+    return Container(
+      padding:
+      const EdgeInsets.all(16),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius:
+        BorderRadius.circular(20),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Icon(icon),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 13,
+
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor:
+            const Color(0xffDBEAFE),
+            child: Icon(
+              icon,
+              color:
+              const Color(
+                0xff2563EB,
               ),
             ),
-            const SizedBox(height: 6),
-            Text(
-              value,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+          ),
+
+          const SizedBox(height: 12),
+
+          Text(
+            title,
+            style:
+            const TextStyle(
+              color:
+              Colors.grey,
             ),
-          ],
-        ),
+          ),
+
+          const SizedBox(height: 5),
+
+          Text(
+            value,
+            style:
+            const TextStyle(
+              fontSize: 18,
+              fontWeight:
+              FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

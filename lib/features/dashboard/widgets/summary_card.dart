@@ -15,32 +15,55 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Icon(icon),
-              const SizedBox(height: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 13,
-                ),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 22,
+              backgroundColor: const Color(0xffDBEAFE),
+              child: Icon(
+                icon,
+                color: const Color(0xff2563EB),
+                size: 22,
               ),
-              const SizedBox(height: 6),
-              Text(
-                amount,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+
+            const SizedBox(height: 14),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 8),
+
+            Text(
+              amount,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff111827),
+              ),
+            ),
+          ],
         ),
       ),
     );
