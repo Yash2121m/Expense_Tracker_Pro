@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'core/theme/app_theme.dart';
 import 'data/models/expense_model.dart';
 import 'features/dashboard/presentation/dashboard_screen.dart';
+import 'features/navigation/main_navigation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: AppTheme.lightTheme,
-      home: const DashboardScreen(),
+      home: const MainNavigationScreen(),
     );
   }
 }
