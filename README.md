@@ -8,15 +8,20 @@ A modern **Offline-First Expense Management Application** built with **Flutter**
 
 ### Dashboard
 
-![Dashboard](assets/screenshots/dashboard.png)
+<img src="https://github.com/user-attachments/assets/a2d1bd09-3086-41db-9175-7d9272b9bf6d" width="300"/>
+
 
 ### Add Expense
 
-![Add Expense](assets/screenshots/add_expense.png)
+<img src="https://github.com/user-attachments/assets/333c0ad6-c28e-494a-8064-9948bf4eed2d" width="300"/>
 
 ### Analytics
 
-![Analytics](assets/screenshots/analytics.png)
+<img src="https://github.com/user-attachments/assets/e7c61519-5fb8-48dc-a588-b2af3189f47c" width="300"/>
+<img src="https://github.com/user-attachments/assets/b1dcf981-8241-44d1-8fc9-8009e48dafcd" width="300"/>
+
+
+
 
 ---
 
